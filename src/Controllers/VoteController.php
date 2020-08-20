@@ -47,7 +47,7 @@ class VoteController extends Controller
 
         if ($nextVoteTime !== null) {
             return response()->json([
-                'message' => trans('vote::messages.vote-delay', ['time' => $nextVoteTime->diffForHumans()]),
+                'message' => trans('vote::messages.vote-delay', ['time' => $nextVoteTime->diffForHumans(['parts' => 2])]),
             ], 422);
         }
 
@@ -70,7 +70,7 @@ class VoteController extends Controller
 
         if ($nextVoteTime !== null) {
             return response()->json([
-                'message' => trans('vote::messages.vote-delay', ['time' => $nextVoteTime->diffForHumans()]),
+                'message' => trans('vote::messages.vote-delay', ['time' => $nextVoteTime->diffForHumans(['parts' => 2])]),
             ], 422);
         }
 
