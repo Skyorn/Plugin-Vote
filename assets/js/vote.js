@@ -1,3 +1,5 @@
+let voting = false;
+
 function toggleStep(step) {
     document.querySelectorAll('[data-vote-step]').forEach(function (el) {
         el.classList.add('d-none');
