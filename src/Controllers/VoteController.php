@@ -43,7 +43,7 @@ class VoteController extends Controller
 
         abort_if($user === null, 401);
 
-        $nextVoteTime = $site->getNextVoteTime($user);
+        $nextVoteTime = $site->getNextVoteTime($user, $request);
 
         if ($nextVoteTime !== null) {
             return response()->json([
@@ -66,7 +66,7 @@ class VoteController extends Controller
 
         abort_if($user === null, 401);
 
-        $nextVoteTime = $site->getNextVoteTime($user);
+        $nextVoteTime = $site->getNextVoteTime($user, $request);
 
         if ($nextVoteTime !== null) {
             return response()->json([
@@ -94,6 +94,7 @@ class VoteController extends Controller
             $site->votes()->create([
                 'user_id' => $user->id,
                 'reward_id' => $reward->id,
+                'user_ip' => $request->ip()
             ]);
 
             $reward->giveTo($user);

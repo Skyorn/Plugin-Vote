@@ -4,6 +4,7 @@ namespace Azuriom\Plugin\Vote\Models;
 
 use Azuriom\Models\Traits\HasTablePrefix;
 use Azuriom\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -81,10 +82,12 @@ class Site extends Model
         return $this->rewards->first();
     }
 
-    public function getNextVoteTime(User $user)
+    public function getNextVoteTime(User $user, Request $request)
     {
         $lastVoteTime = $this->votes()
-            ->where('user_id', $user->id)
+            ->where(function($query) use ($user, $request) {
+                $query->where('user_ip', $request->ip())->orWhere('user_id', $user->id);
+            })
             ->where('created_at', '>', now()->subMinutes($this->vote_delay))
             ->latest()
             ->value('created_at');
