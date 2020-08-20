@@ -22,5 +22,5 @@ return [
     'no-site' => 'Aucun site de vote n\'est disponible pour le moment.',
     'vote-delay' => 'Vous avez déjà voté, vous pouvez voter à nouveau :time !',
     'site-no-rewards' => 'Ce site n\'a pas de récompenses.',
-    'vote-success' => 'Votre vote a été pris en compte, vous recevrez bientôt vos récompenses !',
+    'vote-success' => '<i class="fas fa-check"></i> Ton vote a été validé avec succès !<br> Utilise la commande <span class="vote-command">/key</span> en jeu pour récupérer ta récompense !',
 ];
