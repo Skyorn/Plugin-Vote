@@ -64,22 +64,17 @@ class Site extends Model
         return $this->hasMany(Vote::class);
     }
 
-    public function getRandomReward()
+    public function getRandomReward($reward)
     {
-        $total = $this->rewards->sum('chances');
-        $random = random_int(0, $total);
+        $random = random_int(0, 100);
 
-        $sum = 0;
+        $rewardChance = $reward->chances;
 
-        foreach ($this->rewards as $reward) {
-            $sum += $reward->chances;
-
-            if ($sum >= $random) {
-                return $reward;
-            }
+        if ($rewardChance >= $random) {
+            return $reward;
         }
 
-        return $this->rewards->first();
+        return null;
     }
 
     public function getNextVoteTime(User $user, Request $request)

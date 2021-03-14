@@ -88,16 +88,18 @@ class VoteController extends Controller
             ]);
         }
 
-        $reward = $site->getRandomReward();
+        foreach ($site->rewards as $reward) {
+            $reward = $site->getRandomReward($reward);
 
-        if ($reward !== null) {
-            $site->votes()->create([
-                'user_id' => $user->id,
-                'reward_id' => $reward->id,
-                'user_ip' => $request->ip()
-            ]);
+            if ($reward !== null) {
+                $site->votes()->create([
+                    'user_id' => $user->id,
+                    'reward_id' => $reward->id,
+                    'user_ip' => $request->ip()
+                ]);
 
-            $reward->giveTo($user);
+                $reward->giveTo($user);
+            }
         }
 
         return response()->json(['message' => trans('vote::messages.vote-success')]);
